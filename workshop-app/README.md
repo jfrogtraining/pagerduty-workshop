@@ -1,6 +1,8 @@
-# WorkshopApp
+# Workshop App
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.
+
+![pagerduty-workshop-app](https://user-images.githubusercontent.com/6440106/127370735-141fe099-e669-46b5-8bd0-a81835058bb2.png)
 
 ## Build and Run Docker Image Locally
 
