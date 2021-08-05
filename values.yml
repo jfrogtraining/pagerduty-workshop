@@ -5,6 +5,7 @@ Artifactory:
   prodRepo: workshop-docker-prod-local
 PagerDuty:
   intName: pagerduty_integration
+  pipelinesRoutingKey: xxxxxx #change to your pagerduty pipelines integration key
 GitHub:
   path: jfrogtraining/pagerduty-workshop #change to your github username
   gitProvider: github_integration

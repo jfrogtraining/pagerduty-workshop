@@ -53,7 +53,7 @@ pipelines:
             - mv $res_codeRepo_resourcePath/workshop-app/src/app/app.component.html.update $res_codeRepo_resourcePath/workshop-app/src/app/app.component.html
           onSuccess:
             - echo "Congrats the Docker image was built!"
-            - send_notification int_pagerduty_token --text "Docker image built {{ .Values.app.dockerImageName }} Tag ${run_number}"
+            - send_notification int_pagerduty_token --routingkey {{ .Values.PagerDuty.pipelinesRoutingKey }} --text "Docker image built {{ .Values.app.dockerImageName }} Tag ${run_number}"
       - name: app_docker_push
         type: DockerPush
         configuration:
@@ -71,7 +71,7 @@ pipelines:
         execution:
           onSuccess:
             - echo "Congrats the Docker image was pushed!"
-            - send_notification {{ .Values.PagerDuty.intName }} --text "Docker image pushed to dev repo {{ .Values.app.dockerImageName }} Tag ${run_number}"
+            - send_notification {{ .Values.PagerDuty.intName }} --routingkey {{ .Values.PagerDuty.pipelinesRoutingKey }} --text "Docker image pushed to dev repo {{ .Values.app.dockerImageName }} Tag ${run_number}"
       - name: publish_build_info
         type: PublishBuildInfo
         configuration:
@@ -94,7 +94,7 @@ pipelines:
         execution:
           onSuccess:
             - echo "Congrats the Docker image was promoted!"
-            - send_notification {{ .Values.PagerDuty.intName }} --text "Docker image was promoted to the prod repo {{ .Values.app.dockerImageName }} Tag ${run_number}"
+            - send_notification {{ .Values.PagerDuty.intName }} --routingkey {{ .Values.PagerDuty.pipelinesRoutingKey }} --text "Docker image was promoted to the prod repo {{ .Values.app.dockerImageName }} Tag ${run_number}"
       - name: deploy
         type: Bash
         configuration:
@@ -121,4 +121,4 @@ pipelines:
             - echo "Workshop App launched!"
           onSuccess:
             - echo "Congrats the Docker image was deployed!"
-            - send_notification {{ .Values.PagerDuty.intName }} --text "Docker image was deployed to prod {{ .Values.app.dockerImageName }} Tag ${run_number}"
+            - send_notification {{ .Values.PagerDuty.intName }} --routingkey {{ .Values.PagerDuty.pipelinesRoutingKey }} --text "Docker image was deployed to prod {{ .Values.app.dockerImageName }} Tag ${run_number}"
